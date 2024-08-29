@@ -16,14 +16,16 @@ function App() {
   const [complexData, setComplexData] = useState<complexType[]>([])
   const [fourColumnData, setFourColumnData] = useState<fourColumnType[]>([])
   const [CheckData, setCheckData] = useState<checkType[]>([])
+  const [search, setSearch] = useState<string>('')
 
 
   useEffect(() => {
-    setCheckData(tableDataCheck)
-    setFourColumnData(fourColumnDataComplex)
-    setComplexData(tableDataComplex)
-    setDevelopmentData(tableDataDevelopment)
-  }, [])
+    setDevelopmentData(tableDataDevelopment.filter((data) => data.name.toLowerCase().includes(search.toLowerCase())))
+    setComplexData(tableDataComplex.filter((data) => data.name.toLowerCase().includes(search.toLowerCase())))
+    setFourColumnData(fourColumnDataComplex.filter((data) => data.name.toLowerCase().includes(search.toLowerCase())))
+    setCheckData(tableDataCheck.filter((data) => data.name.toLowerCase().includes(search.toLowerCase())))
+
+  }, [search])
 
 
   const handleDelete = (idx: number, data: any[], setData: React.Dispatch<React.SetStateAction<any[]>>) => {
@@ -44,11 +46,15 @@ function App() {
     }
   }
 
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value)
+  }
+
   return (
     <div className={`w-full flex ${isOpen && isMobile ? "max-h-screen overflow-y-hidden" : "min-h-screen"}`}>
       <Sidebar />
       <section className="bg-primary w-full flex flex-col px-3">
-        <Header title='Data Tables' breadcrumb='Pages / Data Tables' />
+        <Header title='Data Tables' breadcrumb='Pages / Data Tables' onSearch={handleSearch} />
         <div className="my-5 flex-1 p-5">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <DataTable

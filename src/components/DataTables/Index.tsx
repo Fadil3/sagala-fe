@@ -1,4 +1,4 @@
-import { IconDots, IconPlus } from "@tabler/icons-react";
+import { IconArrowDown, IconArrowUp, IconDots, IconPlus } from "@tabler/icons-react";
 import { useState, useRef, useEffect } from "react";
 import {
   ColumnDef,
@@ -14,7 +14,6 @@ interface DataTableProps<TData, TValue> {
   title?: string;
   variant?: string;
   data: TData[];
-  onSort?: (sortBy: string, sortOrder: string) => void;
   query?: {
     sortBy: string;
     sortOrder: string;
@@ -28,7 +27,6 @@ export function DataTable<TData, TValue>({
   title,
   variant,
   data,
-  onSort,
   query,
   onAddData,
 }: DataTableProps<TData, TValue>) {
@@ -147,29 +145,17 @@ export function DataTable<TData, TValue>({
                           className: header.column.getCanSort()
                             ? "cursor-pointer border-b-[1px] border-gray-200 pt-4 pb-2 pr-4 text-start select-none flex items-center gap-1"
                             : "",
-                          onClick: () => {
-                            header.column.getToggleSortingHandler();
-                            onSort?.(
-                              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                              // @ts-ignore
-                              header.column.columnDef.accessorKey,
-                              query?.sortOrder === "asc" ? "desc" : "asc"
-                            );
-                          },
+                          onClick: header.column.getToggleSortingHandler(),
                         }}
                       >
                         {flexRender(
                           header.column.columnDef.header,
                           header.getContext()
                         )}
-                        {
-                          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                          // @ts-ignore
-                          header.column.columnDef.accessorKey ===
-                          query?.sortBy &&
-                          (sortingIcons[query?.sortOrder as "asc" | "desc"] ??
-                            null)
-                        }
+                        {{
+                          asc: <IconArrowUp />,
+                          desc: <IconArrowDown />,
+                        }[header.column.getIsSorted() as string] ?? null}
                       </div>
                     </th>
                   );
@@ -211,6 +197,6 @@ export function DataTable<TData, TValue>({
           }
         }
       />
-    </div>
+    </div >
   );
 }
