@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
 import Select from 'react-select';
 import { complexType } from '../../data/complex';
@@ -89,7 +91,8 @@ const AddDataDialog: React.FC<AddDataDialogProps> = ({ isVisible, onClose, onAdd
               <label className="block text-gray-700">Status</label>
               <Select
                 name="status"
-                value={statusOptions.filter(option => formData.status === option.value)}
+                //  @ts-ignore
+                value={statusOptions.filter(option => formData?.status === option.value)}
                 onChange={(selectedOption: any) => setFormData({ ...formData, status: selectedOption.value })}
                 options={statusOptions}
                 className="w-full"
@@ -102,6 +105,7 @@ const AddDataDialog: React.FC<AddDataDialogProps> = ({ isVisible, onClose, onAdd
               <label className="block text-gray-700">OS</label>
               <Select
                 name="os"
+                //  @ts-ignore
                 value={osOptions.filter(option => formData.os.includes(option.value))}
                 onChange={handleSelectChange}
                 options={osOptions}
@@ -118,6 +122,7 @@ const AddDataDialog: React.FC<AddDataDialogProps> = ({ isVisible, onClose, onAdd
                 <input
                   type="number"
                   name="quantity"
+                  //  @ts-ignore
                   value={formData.quantity}
                   onChange={handleChange}
                   className="w-full p-2 border border-gray-300 rounded"

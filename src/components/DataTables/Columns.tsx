@@ -64,7 +64,7 @@ export const getCheckColumns = (handleDelete: (idx: number) => void): ColumnDef<
     enableSorting: true,
     cell: (row) => (
       <div className="flex gap-1">
-        <input type="checkbox" id="scales" name="scales" checked />
+        <input type="checkbox" id="scales" name="scales" />
         <p className="text-sm font-semibold text-blue-950 p-5">{row.getValue() as string}</p>
       </div>
     )

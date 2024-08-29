@@ -5,7 +5,28 @@ import useSidebarStore from "../../store/useSidebarStore";
 import { useEffect } from "react";
 
 export default function Sidebar() {
-  const { isOpen, close, open, isMobile, setMobile } = useSidebarStore();
+  const { isOpen, close, open, isMobile, setMobile, setActiveItem, activeItem } = useSidebarStore();
+
+  const sidebarItems = [
+    {
+      icon: IconHomeFilled,
+      title: 'Main Dashboard',
+      href: '/',
+    },
+    {
+      icon: IconChartBar,
+      title: 'Data Tables',
+      href: '/data-tables',
+    },
+  ];
+
+  useEffect(() => {
+    const path = window.location.pathname;
+    const splitPath = path.split('/');
+    setActiveItem(
+      splitPath[1] === '' ? '' : splitPath[1]
+    );
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -39,17 +60,17 @@ export default function Sidebar() {
         </div>
         <hr className='mb-10' />
         <ul className='pl-8 w-full'>
-          <SidebarItem
-            icon={IconHomeFilled}
-            title='Main Dashboard'
-            href='/'
-          />
-          <SidebarItem
-            icon={IconChartBar}
-            title='Data Tables'
-            href='/'
-            active
-          />
+          {sidebarItems.map((item, index) => (
+            <SidebarItem
+              key={index}
+              icon={item.icon}
+              title={item.title}
+              href={item.href}
+              active={
+                activeItem === item.href.split('/')[1]
+              }
+            />
+          ))}
         </ul>
       </aside>
       {isMobile && isOpen && (

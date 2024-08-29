@@ -7,6 +7,8 @@ interface SidebarState {
   close: () => void;
   toggle: () => void;
   setMobile: (isMobile: boolean) => void;
+  activeItem: string;
+  setActiveItem: (item: string) => void;
 }
 
 const useSidebarStore = create<SidebarState>((set) => ({
@@ -16,6 +18,8 @@ const useSidebarStore = create<SidebarState>((set) => ({
   close: () => set({ isOpen: false }),
   toggle: () => set((state) => ({ isOpen: !state.isOpen })),
   setMobile: (isMobile: boolean) => set({ isMobile }),
+  activeItem: '',
+  setActiveItem: (item) => set({ activeItem: item }),
 }));
 
 export default useSidebarStore;
