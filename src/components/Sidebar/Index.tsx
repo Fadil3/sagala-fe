@@ -9,7 +9,7 @@ export default function Sidebar() {
 
   useEffect(() => {
     const handleResize = () => {
-      const isMobileView = window.innerWidth < 1024; // Adjust this breakpoint as needed
+      const isMobileView = window.innerWidth < 1024;
       setMobile(isMobileView);
       if (isMobileView && !isOpen) {
         close();
@@ -30,7 +30,7 @@ export default function Sidebar() {
 
   return (
     <>
-      <aside className={`bg-white shadow-sm transition-all duration-300 h-screen ${isMobile ? 'absolute z-50 transition-all duration-300' : 'sticky'} top-0 ${isOpen ? 'block' : 'hidden'} min-w-[290px] overflow-auto`}>
+      <aside className={`bg-white shadow-sm transition-all duration-300 h-screen ${isMobile ? 'absolute z-[150] transition-all duration-300' : 'sticky'} top-0 ${isOpen ? 'block' : 'hidden'} min-w-[290px] overflow-auto`}>
         <IconX size={20} className='absolute top-2 right-2 block lg:hidden cursor-pointer' onClick={
           close
         } />
@@ -43,42 +43,17 @@ export default function Sidebar() {
             icon={IconHomeFilled}
             title='Main Dashboard'
             href='/'
+          />
+          <SidebarItem
+            icon={IconChartBar}
+            title='Data Tables'
+            href='/'
             active
-          />
-          <SidebarItem
-            icon={IconChartBar}
-            title='Data Tables'
-            href='/'
-          />
-          <SidebarItem
-            icon={IconChartBar}
-            title='Data Tables'
-            href='/'
-          />
-          <SidebarItem
-            icon={IconChartBar}
-            title='Data Tables'
-            href='/'
-          />
-          <SidebarItem
-            icon={IconChartBar}
-            title='Data Tables'
-            href='/'
-          />
-          <SidebarItem
-            icon={IconChartBar}
-            title='Data Tables'
-            href='/'
-          />
-          <SidebarItem
-            icon={IconChartBar}
-            title='Data Tables'
-            href='/'
           />
         </ul>
       </aside>
       {isMobile && isOpen && (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-10 max-h-screen" onClick={close} />
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-[149] max-h-screen" onClick={close} />
       )}
     </>
   )
