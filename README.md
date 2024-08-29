@@ -1,5 +1,5 @@
 # Sagala Frontend
-Sagala Frontend is an admin dashboard to preview, delete, and add data.
+Sagala Frontend is an admin dashboard to preview, delete, and add data. Live acces at [sagala-fe-mrayhanfadil.vercel.app](sagala-fe-mrayhanfadil.vercel.app) .
 
 ## Features
 - Search entire table
